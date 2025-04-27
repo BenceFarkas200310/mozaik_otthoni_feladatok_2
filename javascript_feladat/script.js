@@ -2,6 +2,7 @@ const subjects = ["Matematika", "Fizika", "Irodalom", "Történelem", "Kémia"];
 
 const subjectList = document.getElementById("subject-list");
 const timetable = document.getElementById("timetable");
+const alertElement = document.getElementById("alert");
 
 subjects.forEach((subject) => {
   const item = document.createElement("div");
@@ -56,7 +57,8 @@ timetable.addEventListener("drop", (e) => {
   ) {
     target.textContent = subject;
     target.classList.add("deletable");
-  }
+    showNotification(subject + " óra sikeresen hozzáadva", "success");
+  } else showNotification("Ebben az időpontban már van óra!", "danger");
 });
 
 const deleteText = "Törlés";
@@ -84,6 +86,9 @@ function saveTimetable() {
   const data = [];
   cells.forEach((cell) => data.push(cell.textContent));
   localStorage.setItem("timetable", JSON.stringify(data));
+  if (localStorage.getItem("timetable")) {
+    showNotification("Órarend sikeresen mentve", "success");
+  }
 }
 
 function getSavedTimetable() {
@@ -103,4 +108,15 @@ function deleteTimetable() {
     cell.textContent = "";
     cell.classList.remove("deletable");
   });
+  showNotification("Órarend sikeresen törölve", "success");
+}
+
+function showNotification(message, type) {
+  alertElement.className = `alert alert-${type}`;
+  alertElement.classList.remove("d-none");
+  console.log("alerted");
+  alertElement.textContent = message;
+  setTimeout(() => {
+    alertElement.classList.add("d-none");
+  }, 3000);
 }

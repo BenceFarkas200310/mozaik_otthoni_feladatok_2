@@ -16,3 +16,12 @@ td {
   background-color: #f93636;
   color: #f2f2f2;
 }
+
+.alert {
+  position: absolute;
+  top: 10px;
+  right: 5%;
+  width: 30%;
+  margin-inline: auto;
+  transition: all 0.15s ease;
+}
