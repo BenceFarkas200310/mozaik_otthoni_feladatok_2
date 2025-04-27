@@ -96,3 +96,11 @@ function getSavedTimetable() {
     });
   }
 }
+
+function deleteTimetable() {
+  localStorage.removeItem("timetable");
+  cells.forEach((cell) => {
+    cell.textContent = "";
+    cell.classList.remove("deletable");
+  });
+}
