@@ -2,7 +2,6 @@ const subjects = ["Matematika", "Fizika", "Irodalom", "Történelem", "Kémia"];
 
 const subjectList = document.getElementById("subject-list");
 const timetable = document.getElementById("timetable");
-const notification = document.getElementById("notification");
 
 subjects.forEach((subject) => {
   const item = document.createElement("div");
@@ -39,3 +38,42 @@ hours.forEach((hour) => {
 });
 html += "</tbody>";
 timetable.innerHTML = html;
+
+let cells = document.querySelectorAll("td");
+
+timetable.addEventListener("dragover", (e) => e.preventDefault());
+timetable.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const subject = e.dataTransfer.getData("text/plain");
+  const target = e.target.closest("td");
+
+  if (
+    target &&
+    target.classList.contains("dropzone") &&
+    target.innerHTML.trim() === ""
+  ) {
+    target.textContent = subject;
+    target.classList.add("deletable");
+  }
+});
+
+let deleteText = "Törlés";
+cells.forEach((cell) => {
+  cellContent = "";
+  cell.addEventListener("mouseover", (e) => {
+    cellContent = cell.innerHTML;
+    if (cellContent !== "") cell.innerHTML = deleteText;
+  });
+  cell.addEventListener("mouseout", (e) => {
+    if (cell.innerHTML === deleteText) cell.innerHTML = cellContent;
+  });
+
+  cell.addEventListener("click", (e) => {
+    console.log(cellContent);
+    if (cell.innerHTML === deleteText) {
+      cell.innerHTML = "";
+      cellContent = "";
+      cell.classList.remove("deletable");
+    }
+  });
+});
