@@ -27,7 +27,7 @@ const hours = [
   "16:00",
 ];
 
-let html = "<thead><tr><th>Óra</th>";
+let html = "<thead><tr><th></th>";
 days.forEach((day) => (html += `<th>${day}</th>`));
 html += "</tr></thead><tbody>";
 
@@ -40,6 +40,8 @@ html += "</tbody>";
 timetable.innerHTML = html;
 
 let cells = document.querySelectorAll("td");
+
+window.onload = getSavedTimetable();
 
 timetable.addEventListener("dragover", (e) => e.preventDefault());
 timetable.addEventListener("drop", (e) => {
@@ -57,7 +59,7 @@ timetable.addEventListener("drop", (e) => {
   }
 });
 
-let deleteText = "Törlés";
+const deleteText = "Törlés";
 cells.forEach((cell) => {
   cellContent = "";
   cell.addEventListener("mouseover", (e) => {
@@ -77,3 +79,20 @@ cells.forEach((cell) => {
     }
   });
 });
+
+function saveTimetable() {
+  const data = [];
+  cells.forEach((cell) => data.push(cell.textContent));
+  localStorage.setItem("timetable", JSON.stringify(data));
+}
+
+function getSavedTimetable() {
+  const savedData = localStorage.getItem("timetable");
+  if (savedData) {
+    const data = JSON.parse(savedData);
+    cells.forEach((cell, index) => {
+      cell.textContent = data[index];
+      if (data[index] !== "") cell.classList.add("deletable");
+    });
+  }
+}

@@ -2,9 +2,14 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+th {
+  min-width: 170px;
+  width: 200px;
+}
+
 td {
   cursor: default;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 .deletable:hover {
