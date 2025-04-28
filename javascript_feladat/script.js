@@ -9,9 +9,12 @@ subjects.forEach((subject) => {
   item.className = "list-group-item list-group-item-action";
   item.textContent = subject;
   item.draggable = true;
+
+  // Egér húzás
   item.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", subject);
   });
+
   subjectList.appendChild(item);
 });
 
@@ -45,21 +48,25 @@ let cells = document.querySelectorAll("td");
 window.onload = getSavedTimetable();
 
 timetable.addEventListener("dragover", (e) => e.preventDefault());
-timetable.addEventListener("drop", (e) => {
+timetable.addEventListener("drop", handleDrop);
+
+function handleDrop(e) {
   e.preventDefault();
-  const subject = e.dataTransfer.getData("text/plain");
+  const subject = e.dataTransfer
+    ? e.dataTransfer.getData("text/plain")
+    : draggedElement.textContent;
   const target = e.target.closest("td");
 
   if (
     target &&
     target.classList.contains("dropzone") &&
-    target.innerHTML.trim() === ""
+    target.textContent.trim() === ""
   ) {
     target.textContent = subject;
     target.classList.add("deletable");
     showNotification(subject + " óra sikeresen hozzáadva", "success");
   } else showNotification("Ebben az időpontban már van óra!", "danger");
-});
+}
 
 const deleteText = "Törlés";
 cells.forEach((cell) => {
@@ -73,7 +80,6 @@ cells.forEach((cell) => {
   });
 
   cell.addEventListener("click", (e) => {
-    console.log(cellContent);
     if (cell.innerHTML === deleteText) {
       cell.innerHTML = "";
       cellContent = "";
@@ -114,7 +120,6 @@ function deleteTimetable() {
 function showNotification(message, type) {
   alertElement.className = `alert alert-${type}`;
   alertElement.classList.remove("d-none");
-  console.log("alerted");
   alertElement.textContent = message;
   setTimeout(() => {
     alertElement.classList.add("d-none");

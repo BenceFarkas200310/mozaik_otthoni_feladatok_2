@@ -2,11 +2,6 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-th {
-  min-width: 170px;
-  width: 200px;
-}
-
 td {
   cursor: default;
   transition: all 0.15s ease;
@@ -24,4 +19,10 @@ td {
   width: 30%;
   margin-inline: auto;
   transition: all 0.15s ease;
+}
+
+@media (max-width: 768px) {
+  .alert {
+    width: 90%;
+  }
 }
