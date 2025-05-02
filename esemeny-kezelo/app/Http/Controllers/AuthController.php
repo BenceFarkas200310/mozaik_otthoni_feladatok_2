@@ -40,7 +40,7 @@ class AuthController extends Controller
         }
     
         throw ValidationException::withMessages([
-            'credentials' => 'Wrong username or password.'
+            'credentials' => 'Helytelen email cím vagy jelszó!'
         ]);
     }
 
