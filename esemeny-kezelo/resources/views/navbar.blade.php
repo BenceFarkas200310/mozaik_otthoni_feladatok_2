@@ -17,14 +17,17 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Keresés</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Kijelentkezés</a>
+                </li>
             </ul>
             @else
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Bejelentkezés</a>
+                    <a class="nav-link text-white" href="login">Bejelentkezés</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Regisztráció</a>
+                    <a class="nav-link text-white" href="register">Regisztráció</a>
                 </li>
             </ul>
             @endif
