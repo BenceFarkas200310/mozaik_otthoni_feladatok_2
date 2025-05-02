@@ -17,8 +17,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Keresés</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Kijelentkezés</a>
+                    <a class="nav-link text-white" href="logout">Kijelentkezés</a>
                 </li>
             </ul>
             @else

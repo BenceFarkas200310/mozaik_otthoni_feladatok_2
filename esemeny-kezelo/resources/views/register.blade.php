@@ -16,22 +16,37 @@
             @csrf
             <div class="mb-3">
                 <label for="usernameInput" class="form-label">Felhasználónév:</label>
-                <input type="text" class="form-control" id="newUsernameInput" name="name" required>
+                <input type="text" class="form-control" id="newUsernameInput" name="name">
             </div>
 
             <div class="mb-3">
                 <label for="emailInput" class="form-label">Email cím:</label>
-                <input type="email" class="form-control" id="newEmailInput" name="email" placeholder="name@example.com" required>
+                <input type="email" class="form-control" id="newEmailInput" name="email" placeholder="name@example.com">
             </div>
 
             <div class="mb-3">
                 <label for="passwordInput" class="form-label">Jelszó:</label>
-                <input type="password" class="form-control" id="newPasswordInput" name="password" minlength="6" required>
+                <input type="password" class="form-control" id="newPasswordInput" name="password">
             </div>
 
             <div class="mb-4">
                 <center><button type="submit" class="btn btn-primary">Regisztráció</button></center>
             </div>
+
+
+            @if($errors->any())
+                <div class="errors">    
+                    @foreach($errors->all() as $error)
+                        <p class="mb-2">
+                            {{$error}}
+                        </p>
+                    @endforeach
+                </div>
+                <script type="text/javascript">
+                    const container = document.querySelector('.container');
+                    container.classList.add('has-error');
+                </script>
+            @endif
         </form>
     </div>
 

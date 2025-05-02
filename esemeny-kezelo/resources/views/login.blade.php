@@ -14,16 +14,16 @@
     @include('navbar')
     <div class="container col-10 col-sm-4 mt-5 p-3">
         <center><h1 class="mb-4">Bejelentkezés</h1></center>
-        <form action="">
+        <form action="{{url('/login')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="emailInput" class="form-label">Email cím:</label>
-                <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" name="emailInput" required>
+                <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" name="emailInput">
             </div>
 
             <div class="mb-3">
                 <label for="passwordInput" class="form-label">Jelszó:</label>
-                <input type="password" class="form-control" id="passwordInput" name="passwordInput" required>
+                <input type="password" class="form-control" id="passwordInput" name="passwordInput">
             </div>
 
             <div class="mb-4">
@@ -33,6 +33,19 @@
             <div class="mb-3">
                <center>Még nincs fiókod? <a href="register">Regisztrálj!</a></center>
             </div>
+            @if($errors->any())
+                <div class="errors">    
+                    @foreach($errors->all() as $error)
+                        <p class="mb-2">
+                            {{$error}}
+                        </p>
+                    @endforeach
+                </div>
+                <script type="text/javascript">
+                    const container = document.querySelector('.container');
+                    container.classList.add('has-error');
+                </script>
+            @endif
         </form>
     </div>
 

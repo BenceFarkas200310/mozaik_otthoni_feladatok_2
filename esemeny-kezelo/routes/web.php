@@ -10,5 +10,7 @@ Route::get('/', function () {
 
 Route::get('/login', [Pages::class, 'login']);
 Route::get('/register', [Pages::class, 'register']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);

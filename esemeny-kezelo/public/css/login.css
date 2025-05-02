@@ -3,3 +3,15 @@
     border: 1px solid #0d6dfd68;
     border-radius: 5%;
 }
+
+.errors {
+    background-color: #ec3b3b;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.has-error {
+    box-shadow: 0 0 30px #ec3b3b;
+    border: 1px solid #ea3131;
+}
