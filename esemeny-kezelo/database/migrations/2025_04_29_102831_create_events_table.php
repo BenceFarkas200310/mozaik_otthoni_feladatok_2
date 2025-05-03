@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('img')->nullable();
             $table->enum('type', ['koncert', 'konferencia', 'sport', 'expo', 'dedikálás', 'egyéb' ]);
             $table->text('description')->nullable();
+            $table->boolean('is_public')->default(true);
             $table->timestamps();
         });
     }
