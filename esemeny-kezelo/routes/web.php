@@ -4,9 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Pages;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [Pages::class, 'home']);
 
 Route::get('/login', [Pages::class, 'login']);
 Route::get('/register', [Pages::class, 'register']);

@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-primary p-3">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Events.hu</a>
+        <a class="navbar-brand text-white" href="/">Events.hu</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#burgerMenu" aria-controls="burgerMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
