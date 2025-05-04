@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->enum('type', ['koncert', 'konferencia', 'sport', 'expo', 'dedikálás', 'egyéb' ]);
             $table->text('description')->nullable();
             $table->boolean('is_public')->default(true);
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

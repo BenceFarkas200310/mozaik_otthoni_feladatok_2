@@ -11,6 +11,7 @@ class EventSeeder extends Seeder {
     public function run(): void {
         $types = ['koncert', 'konferencia', 'sport', 'expo', 'dedikálás', 'egyéb'];
         $locations = ['Budapest', 'Debrecen', 'Szeged', 'Pécs', 'Győr'];
+        $userIds = DB::table('users')->pluck('id')->toArray();
 
         for ($i = 1; $i <= 10; $i++) {
             DB::table('events')->insert([
@@ -20,6 +21,7 @@ class EventSeeder extends Seeder {
                 'img' => 'event' . $i . '.jpg',
                 'type' => $types[array_rand($types)],
                 'description' => 'Description for event ' . $i,
+                'author_id' => $userIds[array_rand($userIds)],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
