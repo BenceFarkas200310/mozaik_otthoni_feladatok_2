@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/badges.css')}}">
     <link rel="stylesheet" href="{{asset('css/details.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     @include('navbar')
@@ -42,9 +43,38 @@
         <div class="col-12 col-sm-6 right-side">
             Szervező: <br>
             <b><p class="mb-5">{{$event->author->name}}</p></b>
-            <button class="btn btn-primary">Ott leszek!</button>
+            @if (Auth::check() && !$isInterested)
+                <button class="btn btn-primary" id="interestedButton">Ott leszek!</button>
+            @elseif (Auth::check() && $isInterested)
+                <button class="btn btn-primary disabled">Jelentkeztél!</button>
+            @else
+                <button class="btn btn-primary disabled">Ott leszek!</button>
+                <p class="error">Jelentkezz be, hogy jelentkezni tudj az eseményre!</p>
+            @endif
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#interestedButton').click(function() {
+                $.ajax({
+                    url: '{{ url('/event/interested') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        event_id: '{{ $event->id }}'
+                    },
+                    success: function(response) {
+                        alert('Jelentkeztél az esményre!');
+                        $('#interestedButton').text('Jelentkeztél!').prop('disabled', true);
+                    },
+                    error: function(xhr) {
+                        alert('Hiba! :(');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Services\EventService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,8 +11,11 @@ class Pages extends Controller
 {
     private $publics;
     private $privateEvents;
+    private $eventService;
 
-    public function __construct()
+    public function __construct(
+        EventService $eventService
+    )
     {
         $this->publics = Event::where('is_public', true)->get();
         $userId = Auth::id();
@@ -19,6 +23,7 @@ class Pages extends Controller
         ->whereHas('visibleTo', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })->get();
+        $this->eventService = $eventService;
     }
     public function login() {
         return view('login');
@@ -38,6 +43,7 @@ class Pages extends Controller
 
     public function details($id) {
         $event = Event::findOrFail($id);
-        return view('event-details')->with('event', $event);
+        $isInterested = $this->eventService->alreadyInterested($id);
+        return view('event-details')->with('event', $event)->with('isInterested', $isInterested);
     }
 }
