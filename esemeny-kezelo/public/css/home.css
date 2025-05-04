@@ -11,7 +11,10 @@ section {
     width: 100%;
     height: 100svh;
     padding: 50px;
-    background-color: rgb(253, 250, 243);
+}
+
+svg {
+    margin-right: 5px;
 }
 
 .title {
@@ -50,6 +53,12 @@ section {
 
 .card {
     margin-inline: 30px;
+    width: 25rem;
+    box-shadow: 0px 0px 5px rgba(26, 26, 26, 0.27);
+}
+
+.hidden {
+    display: none;
 }
 
 #scroller {
@@ -63,14 +72,36 @@ section {
     font-size: 25pt;
 }
 
+#title {
+    display: flex;
+}
+
+#title a {
+    margin-top: 10px;
+    margin-left: 30px;
+    color: #2a2d7e;
+}
+
 @media (max-width: 768px) {
     .title h1 {
         font-size: 50pt;
+    }
+
+    .card {
+        width: 18rem;
     }
 }
 
 @media (max-width: 576px) {
     .title h1 {
         font-size: 30pt;
+    }
+
+    .card {
+        width: 14rem;
+    }
+
+    #title {
+        display: block;
     }
 }

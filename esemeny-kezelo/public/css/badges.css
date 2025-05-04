@@ -1,0 +1,37 @@
+.my-badge {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5%;
+    font-size: small;
+    color: white;
+}
+
+.concert {
+    background-color: #2b742bd4;
+    border: 1px solid #276a27d4;
+}
+
+.sport {
+    background-color: #da8a62;
+    border: 1px solid #d88156;
+}
+
+.konferencia {
+    background-color: #333692;
+    border: 1px solid #2a2d7e;
+}
+
+.dedikalas {
+    background-color: #1b8f78;
+    border: 1px solid #187e6a;
+}
+
+.expo {
+    background-color: #e2216f;
+    border: 1px solid #c31d5f;
+}
+
+.egyeb {
+    background-color: #959494;
+    border: 1px solid #7e7d7d;
+}
