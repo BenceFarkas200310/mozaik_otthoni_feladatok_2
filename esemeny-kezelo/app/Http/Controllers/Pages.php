@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Pages extends Controller
 {
@@ -44,6 +45,10 @@ class Pages extends Controller
     public function details($id) {
         $event = Event::findOrFail($id);
         $isInterested = $this->eventService->alreadyInterested($id);
-        return view('event-details')->with('event', $event)->with('isInterested', $isInterested);
+        $howManyInterested = DB::table('interested')->where('event_id', $id)->count();
+        return view('event-details')
+        ->with('event', $event)
+        ->with('isInterested', $isInterested)
+        ->with('howManyInterested', $howManyInterested);
     }
 }

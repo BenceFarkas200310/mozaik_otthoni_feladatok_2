@@ -18,7 +18,6 @@ class EventController extends Controller
             'user_id' => $userId,
             'event_id' => $eventId
         ]);
-
         return response()->json(['success' => true]);
     }
 }
