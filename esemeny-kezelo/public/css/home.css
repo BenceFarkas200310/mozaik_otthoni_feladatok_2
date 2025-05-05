@@ -104,4 +104,8 @@ svg {
     #title {
         display: block;
     }
+
+    #title a {
+        margin-left: 0px;
+    }
 }

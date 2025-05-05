@@ -39,7 +39,7 @@
         <h2>{{$user->name}} által létrehozott események</h2>
         <div class="users-events">
             @if ($usersEvents->isEmpty())
-                <center><h3 class="text-danger mt-5">A felhasználó még nem hozott létre eseményt!</h3></center>
+                <center><h3 class="text-danger mt-5 mb-5">{{$user->name}} még nem hozott létre eseményt!</h3></center>
             @else
                 <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "center", "contain": true }'>
                     @foreach($usersEvents as $event)
@@ -55,7 +55,7 @@
 
         <div class="users-interested">
             @if ($userInterested->isEmpty())
-                <center><h3 class="text-danger mt-5">Még nem jelezte hogy ott lesz bármelyik eseményen!</h3></center>
+                <center><h3 class="text-danger mt-5 mb-5">Még nem jelezte hogy ott lesz bármelyik eseményen!</h3></center>
             @else
                 <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "center", "contain": true }'>
                     @foreach($userInterested as $event)

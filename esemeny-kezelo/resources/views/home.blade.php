@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Events.hu</title>
+    <title>OttLeszek!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/home.css')}}">
     <link rel="stylesheet" href="{{asset('css/badges.css')}}">
@@ -14,7 +14,7 @@
 <body>
     @include('navbar')
     <section class="title">
-        <h1>Events.hu</h1>
+        <h1>OttLeszek!</h1>
         <h3>Biztos megtalálod, amit keresel!</h3>
         
         <a href="#public-events" id="scroller" aria-label="Tovább az eseményekhez">

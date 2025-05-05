@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-primary p-3">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="/">Events.hu</a>
+        <a class="navbar-brand text-white" href="/">OttLeszek!</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#burgerMenu" aria-controls="burgerMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,7 +9,7 @@
             @if(Auth::check())
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Események</a>
+                    <a class="nav-link text-white" href="/all-events">Események</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/profile/{{Auth::id()}}">Profil</a>
