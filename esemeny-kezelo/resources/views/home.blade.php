@@ -36,25 +36,26 @@
             @endforeach
         </div>
 
-        <span id="title" class="mt-5 pt-5">
-            <h2 class="mb-5">Legújabb nem publikus események</h2>
-            @if(!$privates->isEmpty())
-                <a href="all-events">Összes megtekintése ></a>
-            @endif
-            </span>
-        
-            @if ($privates->isEmpty())
-                <center><h2 class="mt-5 pb-5">Még nincs egy esemény sem, amire meg lettél hívva!</h2></center>
-            @else
-                <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "left", "contain": true }'>
-                    @foreach($privates as $event)
-                        <div class="galery-cell">
-                            <x-event-card :event="$event"/>
-                        </div>
-                    @endforeach
-                </div>
-            @endif        
-        
+        @if(Auth::check())
+            <span id="title" class="mt-5 pt-5">
+                <h2 class="mb-5">Legújabb nem publikus események</h2>
+                @if(!$privates->isEmpty())
+                    <a href="all-events">Összes megtekintése ></a>
+                @endif
+                </span>
+            
+                @if ($privates->isEmpty())
+                    <center><h2 class="mt-5 pb-5">Még nincs egy esemény sem, amire meg lettél hívva!</h2></center>
+                @else
+                    <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "left", "contain": true }'>
+                        @foreach($privates as $event)
+                            <div class="galery-cell">
+                                <x-event-card :event="$event"/>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif        
+        @endif
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
