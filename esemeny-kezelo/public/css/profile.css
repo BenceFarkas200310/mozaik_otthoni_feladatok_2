@@ -1,0 +1,47 @@
+img {
+    width: 20%;
+    min-width: 50px;
+    margin-bottom: 40px;
+}
+
+.details {
+    margin-top: 40px;
+    width: 50%;
+    text-align: start;
+}
+
+.details ul {
+    text-align: start;
+
+    list-style: none;
+}
+
+.details li {
+    text-align: start;
+    margin-bottom: 25px;
+}
+
+.main-galery {
+    width: 80%;
+    margin-inline: auto;
+    margin-bottom: 50px;
+}
+
+.galery-cell {
+    width: 40%;
+    margin-right: 30px;
+}
+
+@media (max-width: 576px) {
+    .details {
+        width: 90%;
+    }
+
+    .main-galery {
+        width: 90%;
+    }
+
+    .galery-cell {
+        width: 80%;
+    }
+}

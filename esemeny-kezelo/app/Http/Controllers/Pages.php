@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use App\Services\EventService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,5 +51,15 @@ class Pages extends Controller
         ->with('event', $event)
         ->with('isInterested', $isInterested)
         ->with('howManyInterested', $howManyInterested);
+    }
+
+    public function profile($id) {
+        $user = User::findOrFail($id);
+        $usersEvents = Event::where('author_id', $id)->get();
+        $userInterested = $this->eventService->userInterestedIn($id);
+        return view('profile')
+        ->with('user', $user)
+        ->with('usersEvents', $usersEvents)
+        ->with('userInterested', $userInterested);
     }
 }

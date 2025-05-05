@@ -36,7 +36,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
                         <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                     </svg>
-                    <b>{{\Carbon\Carbon::parse($event->date, 16)->format('Y-m-d H:i')}}</b>
+                    <b>{{\Carbon\Carbon::parse($event->date)->format('Y-m-d H:i')}}</b>
                 </li>
                 <li>
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
         
         <div class="col-12 col-sm-6 right-side">
             Szervező: <br>
-            <b><p class="mb-5">{{$event->author->name}}</p></b>
+            <b><a href="/profile/{{$event->author_id}}"><p class="mb-5">{{$event->author->name}}</p></a></b>
             @if (Auth::check() && !$isInterested)
                 <button class="btn btn-primary" id="interestedButton">Ott leszek!</button>
             @elseif (Auth::check() && $isInterested)
@@ -60,7 +60,7 @@
             @endif
         </div>
         <h2 class="mb-3 mt-5">Leírás:</h2>
-        <p>{{$event->description}}</p
+        <p>{{$event->description}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     

@@ -16,4 +16,11 @@ class EventService
             ->where('event_id', $eventId)
             ->exists();
     }
+
+    public function userInterestedIn($userId) {
+        return DB::table('events')
+        ->join('interested', 'events.id', '=', 'interested.event_id')
+        ->where('interested.user_id', $userId)
+        ->get();
+    }
 }

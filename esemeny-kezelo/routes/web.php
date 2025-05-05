@@ -12,6 +12,7 @@ Route::get('/register', [Pages::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/all-events', [Pages::class, 'allEvents']);
 Route::get('/event/{id}', [Pages::class, 'details']);
+Route::get('/profile/{id}', [Pages::class, 'profile']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

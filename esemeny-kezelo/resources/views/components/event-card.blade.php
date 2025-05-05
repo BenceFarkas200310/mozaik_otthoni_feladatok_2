@@ -11,6 +11,6 @@
           </svg>
           {{$event->location}}
     </p>
-    <a href="event/{{$event->id}}" class="btn btn-primary">Megnézem</a>
+    <a href="/event/{{$event->id}}" class="btn btn-primary">Megnézem</a>
     </div>
 </div>

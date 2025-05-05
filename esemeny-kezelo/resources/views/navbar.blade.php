@@ -12,7 +12,7 @@
                     <a class="nav-link text-white" href="#">Események</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Profil</a>
+                    <a class="nav-link text-white" href="/profile/{{Auth::id()}}">Profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Keresés</a>
