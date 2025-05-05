@@ -20,7 +20,7 @@
             </div>
         </center>
     </div>
-    <div class="container mb-5 row" id="details-container">
+    <div class="container mb-5 row gap-0 column-gap-3" id="details-container">
         <h2 class="mb-3">Részletek:</h2>
         <div class="col-12 col-sm-6">
            <x-badge :event="$event" />
@@ -46,6 +46,7 @@
                 </li>
             </ul>
         </div>
+        
         <div class="col-12 col-sm-6 right-side">
             Szervező: <br>
             <b><p class="mb-5">{{$event->author->name}}</p></b>
@@ -58,6 +59,8 @@
                 <p class="error">Jelentkezz be, hogy jelentkezni tudj az eseményre!</p>
             @endif
         </div>
+        <h2 class="mb-3 mt-5">Leírás:</h2>
+        <p>{{$event->description}}</p
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
