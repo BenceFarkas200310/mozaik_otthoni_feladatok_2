@@ -12,6 +12,11 @@ return [
         'passwordInput' => 'Jelszó',
         'name' => 'Felhasználónév',
         'email' => 'Email',
-        'password' => 'Jelszó'
+        'password' => 'Jelszó',
+        'event-name' => 'Esemény nevének',
+        'event-type' => 'Esemény típusánka',
+        'event-date' => 'Esemény időpontjának',
+        'event-location' => 'Esemény helyszínének',
+        'event-description' => 'Esemény leírásának',
     ]
 ];

@@ -17,3 +17,4 @@ Route::get('/profile/{id}', [Pages::class, 'profile']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/event/interested', [EventController::class, 'markInterested']);
+Route::post('/events/create', [EventController::class, 'create']);

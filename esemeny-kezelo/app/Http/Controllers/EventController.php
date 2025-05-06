@@ -20,4 +20,41 @@ class EventController extends Controller
         ]);
         return response()->json(['success' => true]);
     }
+
+    public function create(Request $request) {
+        $validatedData = $request->validate([
+            'event-name' => 'required|string|max:255',
+            'event-type' => 'required|string',
+            'event-date' => 'required|date_format:Y-m-d\TH:i',
+            'event-location' => 'required|string|max:255',
+            'event-description' => 'nullable|string',
+            'selected_users' => 'nullable|string',
+        ]);
+
+        $selectedUsers = json_decode($request->input('selected_users'), true);
+
+        $author_id = Auth::id();
+        $event = Event::create([
+            'name' => $validatedData['event-name'],
+            'type' => $validatedData['event-type'],
+            'date' => \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $validatedData['event-date'])->format('Y-m-d H:i:s'),
+            'location' => $validatedData['event-location'],
+            'description' => $validatedData['event-description'],
+            'is_public' => $request->has('is_public')? true : false,
+            'author_id' => $author_id,
+            
+        ]);
+
+        if (!empty($selectedUsers)) {
+            foreach ($selectedUsers as $userId) {
+                DB::table('visible_to')->insert([
+                    'event_id' => $event->id,
+                    'user_id' => $userId
+                ]);
+            }
+        }
+
+        return response()->json(['success' => true, 'event' => $event]);
+    }
+
 }

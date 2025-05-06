@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    protected $fillable = [
+        'name',
+        'type',
+        'date',
+        'location',
+        'description',
+        'is_public',
+        'author_id',
+    ];
     public function visibleTo() {
         return $this->belongsToMany(User::class, 'visible_to', 'event_id', 'user_id');
     }

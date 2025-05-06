@@ -57,9 +57,11 @@ class Pages extends Controller
         $user = User::findOrFail($id);
         $usersEvents = Event::where('author_id', $id)->get();
         $userInterested = $this->eventService->userInterestedIn($id);
+        $allUsers = User::all();
         return view('profile')
         ->with('user', $user)
         ->with('usersEvents', $usersEvents)
-        ->with('userInterested', $userInterested);
+        ->with('userInterested', $userInterested)
+        ->with('allUsers', $allUsers);
     }
 }
