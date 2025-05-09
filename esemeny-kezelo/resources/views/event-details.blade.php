@@ -125,17 +125,44 @@
             Szervező: <br>
             <b><a href="/profile/{{$event->author_id}}"><p class="mb-5">{{$event->author->name}}</p></a></b>
             @if (Auth::check() && !$isInterested)
-                <button class="btn btn-primary" id="interestedButton">Ott leszek!</button>
+                <button class="btn btn-primary mb-3" id="interestedButton">Ott leszek!</button>
             @elseif (Auth::check() && $isInterested)
-                <button class="btn btn-primary disabled">Jelentkeztél!</button>
+                <button class="btn btn-primary disabled mb-3">Jelentkeztél!</button>
             @else
-                <button class="btn btn-primary disabled">Ott leszek!</button>
+                <button class="btn btn-primary disabled mb-3">Ott leszek!</button>
                 <p class="error">Jelentkezz be, hogy jelentkezni tudj az eseményre!</p>
+            @endif
+            @if (Auth::check() && Auth::user()->id === $event->author_id)
+                <button class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteEventModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                      </svg>
+                    Törlés
+                </button>
             @endif
         </div>
         <div id="form-message" class="mt-3"></div>
         <h2 class="mb-3 mt-5">Leírás:</h2>
         <p>{{$event->description}}</p>
+    </div>
+
+    <!-- Törlés megerősítés -->
+    <div class="modal fade" id="deleteEventModal" tabindex="-1" aria-labelledby="deleteEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteEventModalLabel">Esemény törlése</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+                </div>
+                <div class="modal-body">
+                    Biztosan törölni szeretnéd az eseményt? Ez a művelet nem vonható vissza!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégsem</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Törlés</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
@@ -245,6 +272,30 @@
         });
 
         $('#update-event-form').hide();
+
+        $('#confirmDeleteButton').click(function() {
+        $.ajax({
+            url: `/events/{{$event->id}}/delete`,
+            method: 'DELETE',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('#deleteEventModal').modal('hide');
+
+                alert('Az esemény sikeresen törölve lett!');
+                if (document.referrer) {
+                    window.location.href = document.referrer;
+                } else {
+                    window.location.href = '/';
+                }
+            },
+            error: function(xhr) {
+                alert('Hiba történt az esemény törlése közben.');
+            }
+        });
+    });
+
         let clickCounter = 1;
         function toggleEdit() {
             if (clickCounter % 2 === 1) {

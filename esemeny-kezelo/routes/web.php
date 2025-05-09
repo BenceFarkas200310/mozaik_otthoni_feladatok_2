@@ -19,3 +19,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/event/interested', [EventController::class, 'markInterested']);
 Route::post('/events/create', [EventController::class, 'create']);
 Route::post('/events/{id}/update', [EventController::class, 'update']);
+
+Route::delete('/events/{id}/delete', [EventController::class, 'delete']);
