@@ -45,10 +45,27 @@ h1 {
     color: #f33333;
 }
 
+.title {
+    display: flex;
+    gap: 10%;
+}
+
 #details-container {
     width: 100%;
     margin-top: 30px;
     padding-left: 20%;
+}
+
+#edit-icon {
+    text-align: right;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    align-content: center;
+}
+
+#edit-icon:hover {
+    background-color: #d9d6d6;
 }
 
 @media (max-width: 576px) {
