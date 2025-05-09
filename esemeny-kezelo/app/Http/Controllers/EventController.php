@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Services\EventService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
+
+    private $eventService;
+    public function __construct(EventService $eventService)
+    {
+        $this->eventService = $eventService;
+    }
     public function markInterested(Request $request)
     {
         $userId = Auth::id();
@@ -46,15 +53,47 @@ class EventController extends Controller
         ]);
 
         if (!empty($selectedUsers)) {
-            foreach ($selectedUsers as $userId) {
-                DB::table('visible_to')->insert([
-                    'event_id' => $event->id,
-                    'user_id' => $userId
-                ]);
-            }
+            $this->eventService->addVisibility($event->id, $selectedUsers);
         }
 
-        return response()->json(['success' => true, 'event' => $event]);
+        $eventCard = view('components.event-card', ['event' => $event])->render();
+
+        return response()->json(['success' => true, 'event' => $event, 'eventCard' => $eventCard]);
     }
 
+    public function update(Request $request, $id)
+    {
+    $validatedData = $request->validate([
+        'event-name' => 'required|string|max:255',
+        'event-type' => 'required|string',
+        'event-date' => 'required|date_format:Y-m-d\TH:i',
+        'event-location' => 'required|string|max:255',
+        'event-description' => 'nullable|string',
+        'selected_users' => 'nullable|string',
+    ]);
+
+    $event = Event::findOrFail($id);
+
+    $event->update([
+        'name' => $validatedData['event-name'],
+        'type' => $validatedData['event-type'],
+        'date' => $validatedData['event-date'],
+        'location' => $validatedData['event-location'],
+        'description' => $validatedData['event-description'],
+        'is_public' => $request->has('is_public'),
+    ]);
+
+    if ($request->filled('selected_users')) {
+        $selectedUsers = json_decode($request->input('selected_users'), true);
+        $event->visibleTo()->sync($selectedUsers);
+    }
+
+    $badgeHtml = view('components.badge', ['event' => $event])->render();
+
+    return response()->json([
+        'success' => true,
+        'event' => $event,
+        'badge' => $badgeHtml
+    ]);
+}
 }

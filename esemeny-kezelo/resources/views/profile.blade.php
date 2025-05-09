@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{asset('css/badges.css')}}">
     <link rel="stylesheet" href="{{asset('css/profile.css')}}">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> 
 </head>
 <body>
     @include('navbar')
@@ -42,7 +42,7 @@
             @if ($usersEvents->isEmpty())
                 <center><h3 class="text-danger mt-5 mb-5">{{$user->name}} még nem hozott létre eseményt!</h3></center>
             @else
-                <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "center", "contain": true }'>
+                <div class="main-galery js-flickity mt-5" data-flickity-options='{ "cellAlign": "center", "contain": true }'  id="users-event-carousel">
                     @foreach($usersEvents as $event)
                         <div class="galery-cell">
                             <x-event-card :event="$event"/>
@@ -53,7 +53,6 @@
         </div>
 
         <h2>Események, amin {{$user->name}} ott lesz</h2>
-
         <div class="users-interested">
             @if ($userInterested->isEmpty())
                 <center><h3 class="text-danger mt-5 mb-5">Még nem jelezte hogy ott lesz bármelyik eseményen!</h3></center>
@@ -189,6 +188,11 @@
                         $('#create-event-form')[0].reset();
                         selectedUsersArray = [];
                         $('#selected-users').empty();
+                        const newCard = `
+                            <div class="galery-cell">
+                                ${response.eventCard}
+                            </div>`;
+                        $('#users-event-carousel').flickity('append', newCard);
                     },
                     error: function(xhr) {
                         let errors = xhr.responseJSON.errors;

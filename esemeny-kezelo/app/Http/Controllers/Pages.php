@@ -47,10 +47,12 @@ class Pages extends Controller
         $event = Event::findOrFail($id);
         $isInterested = $this->eventService->alreadyInterested($id);
         $howManyInterested = DB::table('interested')->where('event_id', $id)->count();
+        $allUsers = User::all();
         return view('event-details')
         ->with('event', $event)
         ->with('isInterested', $isInterested)
-        ->with('howManyInterested', $howManyInterested);
+        ->with('howManyInterested', $howManyInterested)
+        ->with('allUsers', $allUsers);
     }
 
     public function profile($id) {

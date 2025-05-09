@@ -23,4 +23,16 @@ class EventService
         ->where('interested.user_id', $userId)
         ->get();
     }
+
+    public function addVisibility($eventId, $users) {
+        $entries = [];
+        foreach ($users as $userId) {
+            $entries[] = [
+                'event_id' => $eventId,
+                'user_id' => $userId
+            ];
+        }
+
+        DB::table('visible_to')->insert($entries);
+    }
 }

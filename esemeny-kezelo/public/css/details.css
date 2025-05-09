@@ -50,6 +50,31 @@ h1 {
     gap: 10%;
 }
 
+.hidden {
+    display: none;
+}
+
+#selected-users {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 10pt;
+}
+
+.clear-user {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 6px;
+}
+.selected-user-bubble {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #bebaba;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+
 #details-container {
     width: 100%;
     margin-top: 30px;
