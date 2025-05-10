@@ -15,7 +15,7 @@
     <div class="mt-2">
         <center>
             <div class="image-container">
-                <img src="{{asset('placeholder.jpg')}}" alt="Esemény fotója">
+                <img src="{{asset($event->thumbnail ?? 'placeholder.jpg')}}" alt="Esemény fotója">
                 <h1>{{$event->name}}</h1>
             </div>
         </center>
@@ -31,6 +31,8 @@
             </span>
         </div>
         
+        <!--Esemény módosítása-->
+
         <div class="col-12 col-sm-6">
             <form id="update-event-form">
                 @csrf
@@ -66,6 +68,11 @@
                     <label for="event-description" class="form-label">Esemény leírása</label>
                     <textarea type="text" class="form-control" id="event-description" name="event-description"></textarea>
                     <div class="error" id="event-description-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label">Esemény képe</label>
+                    <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+                    <div class="error" id="thumbnail-error"></div>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="is-public" name="is_public" checked>
@@ -124,10 +131,15 @@
         <div class="col-12 col-sm-6 right-side">
             Szervező: <br>
             <b><a href="/profile/{{$event->author_id}}"><p class="mb-5">{{$event->author->name}}</p></a></b>
-            @if (Auth::check() && !$isInterested)
-                <button class="btn btn-primary mb-3" id="interestedButton">Ott leszek!</button>
-            @elseif (Auth::check() && $isInterested)
-                <button class="btn btn-primary disabled mb-3">Jelentkeztél!</button>
+            @if (Auth::check())
+                @if (Auth::user()->id === $event->author_id)
+                    <button class="btn btn-primary disabled mb-3">Ott leszek!</button>
+                    <p class="error">Nem jelentkezhetsz a saját eseményedre!</p>
+                @elseif (!$isInterested)
+                    <button class="btn btn-primary mb-3" id="interestedButton">Ott leszek!</button>
+                @else
+                    <button class="btn btn-primary disabled mb-3">Jelentkeztél!</button>
+                @endif
             @else
                 <button class="btn btn-primary disabled mb-3">Ott leszek!</button>
                 <p class="error">Jelentkezz be, hogy jelentkezni tudj az eseményre!</p>
@@ -233,12 +245,15 @@
                 setTimeout(() => {
                     $('#form-message').fadeOut();
                 }, 2000);
-                let formData = $(this).serialize();
+                let formData = new FormData(this);
+                const baseUrl = "{{asset('')}}"
 
                 $.ajax({
                     url: `/events/{{$event->id}}/update`,
                     method: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         $('#form-message').html('<div class="alert alert-success">Esemény sikeresen frissítve!</div>').show();
                         $('#event-name').val(response.event.name);
@@ -247,12 +262,16 @@
                         $('#event-date').val(response.event.date);
                         $('#event-description').val(response.event.description);
                         $('#badge').html(response.badge);
+                        if (response.event.thumbnail) {
+                            $('.image-container img').attr('src', `${baseUrl}${response.event.thumbnail}`);
+                        }
 
 
                         $('.details').find('b').eq(0).text(response.event.location);
                         $('.details').find('b').eq(1).text(response.event.date.replace('T', ' '));
                         $('.details').find('b').eq(2).text(response.event.interested_count);
 
+                        
                         $('#update-event-form').hide();
                         $('.details').show();
                         $('#edit-icon').css("color", "black");

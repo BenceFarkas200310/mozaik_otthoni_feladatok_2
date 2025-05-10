@@ -107,6 +107,11 @@
                         <textarea type="text" class="form-control" id="event-description" name="event-description"></textarea>
                         <div class="error" id="event-description-error"></div>
                     </div>
+                    <div class="mb-3">
+                        <label for="thumbnail" class="form-label">Esemény képe</label>
+                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+                        <div class="error" id="thumbnail-error"></div>
+                    </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="is-public" name="is_public" checked>
                         <label class="form-check-label" for="is-public">Nyilvános esemény</label>
@@ -177,12 +182,14 @@
         $('#create-event-form').on('submit', function(event) {
                 event.preventDefault();
                 $('#selected-users-input').val(JSON.stringify(selectedUsersArray));
-                let formData = $(this).serialize();
+                let formData = new FormData(this);
 
                 $.ajax({
                     url: '/events/create',
                     method: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         $('#form-message').html('<div class="alert alert-success">Esemény sikeresen létrehozva!</div>');
                         $('#create-event-form')[0].reset();

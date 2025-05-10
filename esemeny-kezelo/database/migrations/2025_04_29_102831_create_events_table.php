@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->boolean('is_public')->default(true);
             $table->unsignedBigInteger('author_id')->default(0);
+            $table->string('thumbnail')->nullable();
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

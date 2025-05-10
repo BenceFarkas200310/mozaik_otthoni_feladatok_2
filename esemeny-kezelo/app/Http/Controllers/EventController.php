@@ -36,11 +36,14 @@ class EventController extends Controller
             'event-location' => 'required|string|max:255',
             'event-description' => 'nullable|string',
             'selected_users' => 'nullable|string',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $selectedUsers = json_decode($request->input('selected_users'), true);
 
         $author_id = Auth::id();
+
+        
         $event = Event::create([
             'name' => $validatedData['event-name'],
             'type' => $validatedData['event-type'],
@@ -51,6 +54,15 @@ class EventController extends Controller
             'author_id' => $author_id,
             
         ]);
+
+        if ($request->hasFile('thumbnail')) {
+            
+            $image = $request->file('thumbnail');
+            $imageName = $event->id . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/events'), $imageName);
+            $event->thumbnail = 'images/events/' . $imageName;
+            $event->save();
+        }
 
         if (!empty($selectedUsers)) {
             $this->eventService->addVisibility($event->id, $selectedUsers);
@@ -70,9 +82,24 @@ class EventController extends Controller
             'event-location' => 'required|string|max:255',
             'event-description' => 'nullable|string',
             'selected_users' => 'nullable|string',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $event = Event::findOrFail($id);
+
+        
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $imageName = $event->id . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/events'), $imageName);
+            $event->thumbnail = 'images/events/' . $imageName;
+            $event->save();
+        }
+
+        if ($request->filled('selected_users')) {
+            $selectedUsers = json_decode($request->input('selected_users'), true);
+            $event->visibleTo()->sync($selectedUsers);
+        }
 
         $event->update([
             'name' => $validatedData['event-name'],
@@ -82,11 +109,6 @@ class EventController extends Controller
             'description' => $validatedData['event-description'],
             'is_public' => $request->has('is_public'),
         ]);
-
-        if ($request->filled('selected_users')) {
-            $selectedUsers = json_decode($request->input('selected_users'), true);
-            $event->visibleTo()->sync($selectedUsers);
-        }
 
         $badgeHtml = view('components.badge', ['event' => $event])->render();
 
@@ -102,7 +124,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        
+
         return response()->json(['success' => true]);
     }
 
