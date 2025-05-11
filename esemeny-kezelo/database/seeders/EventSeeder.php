@@ -20,7 +20,7 @@ class EventSeeder extends Seeder {
                 'location' => $locations[array_rand($locations)],
                 'img' => 'event' . $i . '.jpg',
                 'type' => $types[array_rand($types)],
-                'description' => 'orem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis, ipsum vel cursus tincidunt, sem nibh accumsan arcu, id lacinia dolor quam a ligula. Integer tempor interdum est et semper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vitae molestie turpis. Nullam et urna faucibus, tincidunt mauris nec, porttitor ante. Morbi porta aliquam suscipit. Curabitur hendrerit sem semper ultrices condimentum. Fusce rutrum vitae dui vulputate semper.',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis, ipsum vel cursus tincidunt, sem nibh accumsan arcu, id lacinia dolor quam a ligula. Integer tempor interdum est et semper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec vitae molestie turpis. Nullam et urna faucibus, tincidunt mauris nec, porttitor ante. Morbi porta aliquam suscipit. Curabitur hendrerit sem semper ultrices condimentum. Fusce rutrum vitae dui vulputate semper.',
                 'author_id' => $userIds[array_rand($userIds)],
                 'created_at' => now(),
                 'updated_at' => now(),

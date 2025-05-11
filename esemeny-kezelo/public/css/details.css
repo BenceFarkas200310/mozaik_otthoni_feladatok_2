@@ -11,6 +11,9 @@ h1 {
     overflow-wrap: break-word;
     text-align: left;
 }
+h2 {
+    padding-top: 10px;
+}
 
 img {
     aspect-ratio: initial;
