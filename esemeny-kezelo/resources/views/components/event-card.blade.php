@@ -1,5 +1,5 @@
 <div class="card">
-    <img src="{{asset('placeholder.jpg')}}" class="card-img-top" alt="Event img">
+    <img src="{{$event->thumbnail ? asset($event->thumbnail) : asset('placeholder.jpg')}}" class="card-img-top" alt="Event img">
     <div class="card-body">
     <h5 class="card-title">{{$event->name}}</h5>
     <x-badge :event="$event" />

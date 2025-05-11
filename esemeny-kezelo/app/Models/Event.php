@@ -14,6 +14,7 @@ class Event extends Model
         'description',
         'is_public',
         'author_id',
+        'thumbnail'
     ];
     public function visibleTo() {
         return $this->belongsToMany(User::class, 'visible_to', 'event_id', 'user_id');
