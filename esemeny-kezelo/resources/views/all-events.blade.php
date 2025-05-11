@@ -44,34 +44,8 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        const publics = document.querySelector('#publics');
-        const privates = document.querySelector('#privates');
-        const publicsBtn = document.querySelector('#publics-btn');
-        const privatesBtn = document.querySelector('#privates-btn');
-
-        function showPublics() {
-            publics.classList.remove('hidden');
-            privates.classList.add('hidden');
-
-            publicsBtn.classList.remove('btn-outline-primary');
-            publicsBtn.classList.add('btn-primary');
-
-            privatesBtn.classList.remove('btn-primary');
-            privatesBtn.classList.add('btn-outline-primary');
-        }
-
-        function showPrivates() {
-            privates.classList.remove('hidden');
-            publics.classList.add('hidden');
-
-            privatesBtn.classList.remove('btn-outline-primary');
-            privatesBtn.classList.add('btn-primary');
-
-            publicsBtn.classList.remove('btn-primary');
-            publicsBtn.classList.add('btn-outline-primary');
-        }
-
+    <script src="{{asset('js/all-events.js')}}"></script>
+        
     </script>
 </body>
 </html>
