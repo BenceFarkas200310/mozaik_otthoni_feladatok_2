@@ -14,7 +14,8 @@ h1 {
 
 img {
     aspect-ratio: initial;
-    max-height: 300px;
+    max-height: 350px;
+    object-fit: contain;
 }
 
 #details-container ul {

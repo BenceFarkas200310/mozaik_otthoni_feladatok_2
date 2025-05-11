@@ -18,7 +18,7 @@
 
         <div id="eventResults" class="row">
             @foreach ($events as $event)
-                <div class=" col-12 col-md-6 col-lg-4 mb-3 event-card" data-name="{{ $event->name }}" data-location="{{ $event->location }}" data-date="{{ $event->date }}" data-type="{{ $event->type }}">
+                <div class=" col-12 col-md-6 col-lg-4 mb-3 event-card d-flex justify-content-center" data-name="{{ $event->name }}" data-location="{{ $event->location }}" data-date="{{ $event->date }}" data-type="{{ $event->type }}">
                     
                     <x-event-card :event="$event" />
                 </div>
