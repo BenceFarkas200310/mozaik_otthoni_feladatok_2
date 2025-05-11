@@ -66,4 +66,15 @@ class Pages extends Controller
         ->with('userInterested', $userInterested)
         ->with('allUsers', $allUsers);
     }
+
+    public function search() {
+        $userId = Auth::id();
+        $events = Event::where('is_public', true)
+        ->orWhereHas('visibleTo', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+        ->get();
+
+        return view('search', ['events' => $events]);
+    }
 }

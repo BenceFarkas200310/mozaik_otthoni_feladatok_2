@@ -15,7 +15,7 @@
                     <a class="nav-link text-white" href="/profile/{{Auth::id()}}">Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Keresés</a>
+                    <a class="nav-link text-white" href="/search">Keresés</a>
                 </li class="nav-item">
                     <a class="nav-link text-white" href="/logout">Kijelentkezés</a>
                 </li>
